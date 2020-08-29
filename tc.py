@@ -17,6 +17,8 @@ What do you want to do?
 8.Decrypt with Rail Fence Chiper
 9.Cracking Rail Fence Chiper
 
+10.Encrypt with Route Chiper
+
 0.Exit
 
 Note : In tranposition chiper a way to encrypt, decrypt even crack it is the same way but to make it
@@ -49,6 +51,9 @@ Note : In tranposition chiper a way to encrypt, decrypt even crack it is the sam
         go_to_menu()
     elif menu == "9":
         railfence_crack()
+        go_to_menu()
+    elif menu == "10":
+        rt_chiper_encrypt()
         go_to_menu()
     elif menu == "0":
         exit(0)
@@ -201,5 +206,83 @@ def railfence_crack():
         decrypted = "".join(decrypted)
         print(f"Trial {key} : {decrypted}")
     print("Brute force finished!\n")
+
+def choose_route():
+    route = int(input("""
+Which route do you want to choose?
+1.Up
+2.Down
+3.Left
+4.Right
+5.Spiral down right
+6.Spiral right down
+7.Spiral up right
+8.Spiral right up
+9.Spiral down left
+10.Spiral left down
+11.Spiral up left
+12.Spiral left up
+\n"""))
+    if route not in range(1,13):
+        print("Please enter a valid input from menu")
+        choose_route()
+    else:
+        return route
+
+def rt_chiper_encrypt():
+    decrypted = []
+    text = input("What text do you want to encrypt with this route chiper? ")
+    key = int(input("How many row or column do you want to have? "))
+    key_type = input("""
+Which type of formatting do you want?
+1.Row
+2.Column
+\n""")
+    key_type.lower()
+    key_type.strip()
+    route = choose_route()
+    text = list(text)
+    index = 0
+    if route == 1:
+        if key_type == "1":
+            while len(text) % key != 0:
+                text.append("X")
+            for n in range(0,len(text), key):
+                for i in range(n + key - 1,n - 1, -1):
+                    decrypted.insert(index, text[i])
+                    index += 1
+            decrypted = "".join(decrypted)
+            return print(f"This is the text after encrypted with route chiper : {decrypted}")
+        elif key_type == "2": #Something gets wrong from here
+            while len(text) % key != 0:
+                text.append("X")
+            for n in range(0, key):
+                for i in range(((len(text) // key) - 1) * key + n, n, key):
+                    print(decrypted)
+                    decrypted.append(text[i])
+            decrypted = "".join(decrypted)
+            return print(f"This is the text after encrypted with route chiper : {decrypted}")
+    elif route == 2:
+        pass
+    elif route == 3:
+        pass
+    elif route == 4:
+        pass
+    elif route == 5:
+        pass
+    elif route == 6:
+        pass
+    elif route == 7:
+        pass
+    elif route == 8:
+        pass
+    elif route == 9:
+        pass
+    elif route == 10:
+        pass
+    elif route == 11:
+        pass
+    elif route == 12:
+        pass
 
 menuu()
